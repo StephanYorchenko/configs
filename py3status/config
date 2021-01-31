@@ -1,0 +1,65 @@
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 1
+        color = '#FFFFFF'
+        color_good = '#00FF00'
+        color_bad = '#FF0000'
+        color_degraded = '#FFFFFF'
+        separator = "  "
+ 
+}
+
+order += "timer"
+order += "musicp"
+order += "volume_status"
+order += "backlight"
+order += "battery_level"
+order += "uptime"
+order += "diskdata"
+order += "sysdata"
+order += "wifi" 
+order += "clock"
+order += "keyboard_layout"
+
+
+timer{
+    format = " {timer}"    
+}
+
+sysdata {
+    cache_timeout = 1
+    format = "{mem_used_percent}%"
+}
+
+volume_status {
+    format = " {percentage}"  
+}
+
+uptime {
+    format = "{days}:{hours}:{minutes}"    
+}
+
+diskdata {
+    format = " {free}GB "    
+}
+
+wifi {
+    format = " {ssid} {bitrate}|W: down"    
+    on_click 1 = "exec wicd-gtk"
+}
+ 
+backlight {
+        format = "🞻 {level}%"
+}
+ 
+battery_level {
+        blocks = ""
+        notify_low_level = True
+        format = "{icon} {percent}%"
+        color_charging= "#FFFFFF"
+}
+ 
+clock{
+    format_time = "%d-%m-%Y %a %H:%M:%S"
+}
