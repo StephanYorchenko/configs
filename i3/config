@@ -170,19 +170,19 @@ bar {
 }
 
 ## Команды запуска приложений
-bindsym $mod+Shift+t exec telegram-desktop
-bindsym $mod+Ctrl+t exec --no-startup-id killall -s 6 telegram-desktop
+bindsym $mod+Shift+t exec telegram-desktop # клиент телеграм
+bindsym $mod+Ctrl+t exec --no-startup-id killall -s 6 telegram-desktop # закрыть телегу
 
 bindsym $mod+Shift+g exec google-chrome
 bindsym $mod+Shift+o exec opera
-bindsym $mod+Shift+p exec pavucontrol
-bindsym $mod+Shift+w exec wicd-client
+bindsym $mod+Shift+p exec pavucontrol # контроль звука
+bindsym $mod+Shift+w exec wicd-client # управление сетевыми устройствами
 bindsym $mod+c exec gnome-calculator
 
 ## Привязка кнопок к плееру из py3status
-bindsym XF86AudioPlay exec mocp -G
-bindsym XF86AudioNext exec mocp -f
-bindsym XF86AudioPrev exec mocp -r
+bindsym XF86AudioPlay exec mocp -G # переключение воспроизведение - пауза
+bindsym XF86AudioNext exec mocp -f # далее
+bindsym XF86AudioPrev exec mocp -r # предыдущий трек
 
 ## Возможность спрятать окно, не закрывая его (бывает удобно прятать терминал)
 bindsym $mod+Shift+Tab move scratchpad
