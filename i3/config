@@ -171,22 +171,23 @@ bar {
 }
 
 ## Команды запуска приложений
-bindsym $mod+Shift+t exec telegram-desktop
-bindsym $mod+Ctrl+t exec --no-startup-id killall -s 6 telegram-desktop
+bindsym $mod+Shift+t exec telegram-desktop # клиент телеграм
+bindsym $mod+Ctrl+t exec --no-startup-id killall -s 6 telegram-desktop # закрыть телегу
 
 bindsym $mod+Shift+g exec google-chrome
 bindsym $mod+Shift+o exec opera
-bindsym $mod+Shift+p exec pavucontrol
-bindsym $mod+Shift+w exec wicd-client
+bindsym $mod+Shift+p exec pavucontrol # контроль звука
+bindsym $mod+Shift+w exec wicd-client # управление сетевыми устройствами
 bindsym $mod+c exec gnome-calculator
 
 ## Привязка кнопок к плееру из py3status
 # Если запущен mocp то кнопки привязаны к нему, иначе к spotify. Возможно имеет смысл вныести эти команды в отдельный файл... 
 
-bindsym XF86AudioPlay exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause) || mocp -G
-bindsym XF86AudioNext exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -f
+bindsym XF86AudioPlay exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause) || mocp -G # переключение воспроизведение - пауза
+
+bindsym XF86AudioNext exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -f # следующий трек
  
-bindsym XF86AudioPrev exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -r
+bindsym XF86AudioPrev exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -r # предыдущий трек
 
 ## Возможность спрятать окно, не закрывая его (бывает удобно прятать терминал)
 bindsym $mod+Shift+Tab move scratchpad
