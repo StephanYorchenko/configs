@@ -11,16 +11,47 @@ general {
 }
 
 order += "timer"
-order += "musicp"
+order += "group disks"
 order += "volume_status"
 order += "backlight"
 order += "battery_level"
 order += "uptime"
 order += "diskdata"
 order += "sysdata"
-order += "wifi" 
+order += "group connection" 
 order += "clock"
 order += "keyboard_layout"
+
+group disks {
+    format = "{output} {button}"
+    fixed_width = True
+
+    musicp {}
+
+    spotify {
+        format = "  {title} : {artist}"
+        format_stopped = "  {title} : {artist}"
+        format_down = "no Spotify"
+    }
+
+}
+
+group connection {
+    format = "{output}"
+    
+    wifi {
+        format = " {ssid} {bitrate}|W: down"    
+        on_click 1 = "exec wicd-gtk"
+    }   
+
+    net_iplist {
+        format = '{format_iface}'
+        iface_blacklist = ['docker0', 'lo', 'wlo1']
+        ip_blacklist = ['127.*', '::1']
+        format_iface = '{ip4}'
+    } 
+}
+
 
 
 timer{
@@ -44,10 +75,7 @@ diskdata {
     format = " {free}GB "    
 }
 
-wifi {
-    format = " {ssid} {bitrate}|W: down"    
-    on_click 1 = "exec wicd-gtk"
-}
+
  
 backlight {
         format = "🞻 {level}%"
