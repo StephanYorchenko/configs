@@ -10,6 +10,7 @@ set $ws3 "3> "
 set $ws4 "4> "
 set $ws5 "5> "
 set $ws6 "6> "
+set $ws7 "7> "
 
 ## Привязка изменения яркости к кнопкам на клавиатуре
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
@@ -43,8 +44,8 @@ bindsym Print exec --no-startup-id flameshot gui
 ## Если нажать на $mod то можно перетаскивать плавающие окна мышкой
 floating_modifier $mod
 
-## Два терминала: стандартный на Mod+Enter на текущем рабочем столе и URxvt на 5 рабочем столе (прозрачный)
-bindsym $mod+Shift+Return exec urxvt; 
+## Два терминала: стандартный на Mod+Enter на текущем рабочем столе и floating терминал
+bindsym $mod+Shift+Return exec i3-sensible-terminal && i3-msg "[id=$(xdotool getactivewindow)] floating enable"
 bindsym $mod+Return exec i3-sensible-terminal
 
 
@@ -112,7 +113,7 @@ bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace 7
+bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -124,7 +125,7 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
@@ -180,9 +181,12 @@ bindsym $mod+Shift+w exec wicd-client
 bindsym $mod+c exec gnome-calculator
 
 ## Привязка кнопок к плееру из py3status
-bindsym XF86AudioPlay exec mocp -G
-bindsym XF86AudioNext exec mocp -f
-bindsym XF86AudioPrev exec mocp -r
+# Если запущен mocp то кнопки привязаны к нему, иначе к spotify. Возможно имеет смысл вныести эти команды в отдельный файл... 
+
+bindsym XF86AudioPlay exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause) || mocp -G
+bindsym XF86AudioNext exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -f
+ 
+bindsym XF86AudioPrev exec ((mocp -i | grep STOP -c) && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next) || mocp -r
 
 ## Возможность спрятать окно, не закрывая его (бывает удобно прятать терминал)
 bindsym $mod+Shift+Tab move scratchpad
@@ -192,8 +196,8 @@ bindsym $mod+Tab scratchpad show, move position center
 assign [class="Google-chrome|Firefox|Opera"] workspace $ws1
 assign [class="Pavucontrol|Wicd"] workspace $ws2
 assign [class="TelegramDesktop|discord|zoom"] workspace $ws4
-assign [class="URxvt"] → $ws5
 assign [class="(?i)nautilus"] $ws6
+assign [class="(?i)spotify"] → $ws7
 
 ## Размер рамки окна
 for_window [class=".*"] border pixel 3
