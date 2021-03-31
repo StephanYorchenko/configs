@@ -18,3 +18,4 @@ fonts-font-awesome | поддержка глифов
 rofi | замена i3-dmenu
 mocp | утилита для музыки
 flameshot | утилита для скриншотов
+[spaceship-prompt](https://github.com/denysdovhan/spaceship-prompt) | тема для zsh
