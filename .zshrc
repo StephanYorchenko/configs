@@ -1,6 +1,6 @@
-export ZSH="/home/valery/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
-ZSH_THEME="frisk"
+ZSH_THEME="spaceship"
 
 ENABLE_CORRECTION="true"
 plugins=(git)
